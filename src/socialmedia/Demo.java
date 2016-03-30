@@ -13,6 +13,7 @@ public class Demo implements Runnable {
         // TODO: Add code here to run all three experiements
         
         Experimenter experimenter = new Experimenter();
+		experimenter.setClassifier(new RandomClassifier());
         experimenter.runTest();
     }
     

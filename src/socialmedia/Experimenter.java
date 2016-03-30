@@ -12,7 +12,9 @@ import java.util.Set;
  * @author sburton
  */
 public class Experimenter {
-    
+	
+	private Classifier classifier;
+	
     /**
      * Runs the Experiment and outputs the results
      */
@@ -114,10 +116,13 @@ public class Experimenter {
         
         Map<SocialMediaEntry, Boolean> results = new HashMap<>();
         
+		if(classifier == null) {
+			setClassifier(new TrueClassifier());
+		}
         // Right now this is putting a "true" for everything
         // TODO: This method will need to be changes / replaced.
         for (SocialMediaEntry entry : testSet) {
-            results.put(entry, true);
+            results.put(entry, classifier.classify(trainingSet, entry));
         }
         
         return results;
@@ -154,4 +159,13 @@ public class Experimenter {
         
         System.out.println("\nAccuracy: " + percent);
     }
+	
+	/**
+	 * Chooses the classification algorithm to use when 
+	 * 
+	 * @param classifier The classification algorithm
+	 */
+	public void setClassifier(Classifier classifier) {
+		this.classifier = classifier;
+	}
 }
